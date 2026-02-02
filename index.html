@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Talents - The Partnership Journey</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#FF9800',
+                            green: '#009688',
+                            blue: '#5C6BC0',
+                            dark: '#1a237e',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a237e;
+            border-radius: 5px;
+        }
+        
+        /* Interactive Card Hover Effects */
+        .step-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .step-card:hover .icon-wrapper {
+            background-color: #FF9800;
+            color: white;
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Timeline Connector */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, #1a237e, #5C6BC0, #009688, #FF9800);
+            transform: translateX(-50%);
+            z-index: 0;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                left: 30px;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden">
+
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center bg-brand-dark text-white overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-green rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-[20%] right-[20%] w-[30%] h-[30%] bg-brand-blue rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="mb-4 inline-block px-4 py-1 border border-brand-orange text-brand-orange uppercase tracking-[0.2em] text-sm font-bold animate-fade-in-up">
+                Executive Search Strategy
+            </div>
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
+                THE PARTNERSHIP <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-green">JOURNEY</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-10 font-light tracking-wide max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
+                Hành trình hợp tác chiến lược: Minh bạch, Hiệu quả & Đẳng cấp.
+            </p>
+            <button onclick="scrollToTimeline()" class="group relative px-8 py-3 bg-white text-brand-dark font-bold text-lg tracking-wider hover:bg-brand-orange hover:text-white transition-colors duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                KHÁM PHÁ QUY TRÌNH
+                <i class="fa-solid fa-arrow-down ml-2 group-hover:translate-y-1 transition-transform"></i>
+            </button>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow opacity-70">
+            <i class="fa-solid fa-chevron-down text-3xl"></i>
+        </div>
+    </header>
+
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-6 border-l-8 border-brand-orange pl-6">
+                        WHY PARTNER <br> WITH US?
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-4 font-light">
+                        Chúng tôi không chỉ tuyển dụng. Chúng tôi kiến tạo đội ngũ lãnh đạo cho tương lai của bạn.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="p-4 bg-gray-50 border-l-4 border-brand-green">
+                            <h4 class="text-2xl font-bold text-brand-green">98%</h4>
+                            <p class="text-sm text-gray-500 uppercase">Retention Rate</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-l-4 border-brand-blue">
+                            <h4 class="text-2xl font-bold text-brand-blue">Strategic</h4>
+                            <p class="text-sm text-gray-500 uppercase">Consulting Approach</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal relative">
+                    <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-2xl relative group">
+                        <div class="absolute inset-0 bg-brand-dark flex items-center justify-center">
+                            <i class="fa-solid fa-handshake text-9xl text-white opacity-20 group-hover:scale-110 transition-transform duration-700"></i>
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-60"></div>
+                            <div class="absolute bottom-8 left-8 text-white">
+                                <h3 class="text-2xl font-bold">COMMITMENT TO EXCELLENCE</h3>
+                                <p class="text-brand-orange">Win-Win Partnership</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline" class="py-24 bg-slate-50 relative timeline-line">
+        <div class="container mx-auto px-6 relative z-10">
+            
+            <div class="reveal flex flex-col md:flex-row items-center mb-20 group">
+                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                    <div class="step-card bg-white p-8 rounded-none border-r-4 border-brand-dark shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-brand-dark"></div>
+                        <span class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Step 01</span>
+                        <h3 class="text-3xl font-bold text-brand-dark mb-2">CONTRACT SIGNING</h3>
+                        <h4 class="text-xl text-brand-green mb-4 italic">Ký kết Hợp đồng & Thỏa thuận</h4>
+                        <p class="text-gray-600 mb-4">Chính thức hóa quan hệ hợp tác với sự minh bạch tuyệt đối về phí dịch vụ, chính sách bảo hành và cam kết.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-end md:justify-end text-brand-dark font-semibold text-sm">
+                            <span><i class="fa-solid fa-file-signature text-brand-orange mr-2"></i>Output: Signed Service Contract</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-16 flex justify-center order-1 md:order-2 relative">
+                    <div class="icon-wrapper w-16 h-16 bg-brand-dark text-white rounded-full flex items-center justify-center text-2xl shadow-xl z-10 border-4 border-white transition-all duration-300">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block opacity-50 text-9xl font-bold text-gray-200 select-none">
+                    01
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row items-center mb-20 group">
+                <div class="md:w-1/2 md:pr-12 md:text-right order-3 md:order-1 hidden md:block opacity-50 text-9xl font-bold text-gray-200 select-none">
+                    02
+                </div>
+                <div class="md:w-16 flex justify-center order-1 md:order-2 relative">
+                    <div class="icon-wrapper w-16 h-16 bg-brand-blue text-white rounded-full flex items-center justify-center text-2xl shadow-xl z-10 border-4 border-white transition-all duration-300">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12 order-2 md:order-3 mt-6 md:mt-0">
+                    <div class="step-card bg-white p-8 rounded-none border-l-4 border-brand-blue shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-blue to-transparent"></div>
+                        <span class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Step 02</span>
+                        <h3 class="text-3xl font-bold text-brand-dark mb-2">CALIBRATION & PERSONA</h3>
+                        <h4 class="text-xl text-brand-green mb-4 italic">Thống nhất Chân dung Ứng viên</h4>
+                        <p class="text-gray-600 mb-4">Họp chuyên sâu (Deep-dive) để đồng bộ hóa JD, văn hóa doanh nghiệp và xây dựng "Candidate Persona" chi tiết.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-start text-brand-dark font-semibold text-sm">
+                            <span><i class="fa-solid fa-bullseye text-brand-orange mr-2"></i>Output: Search Strategy Defined</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row items-center mb-20 group">
+                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                    <div class="step-card bg-white p-8 rounded-none border-r-4 border-brand-green shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-brand-green"></div>
+                        <span class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Step 03</span>
+                        <h3 class="text-3xl font-bold text-brand-dark mb-2">SOURCING & MAPPING</h3>
+                        <h4 class="text-xl text-brand-green mb-4 italic">Tìm kiếm & Sơ đồ hóa Thị trường</h4>
+                        <p class="text-gray-600 mb-4">Kích hoạt mạng lưới chuyên gia, chủ động "săn" (Headhunt) các ứng viên thụ động (passive candidates) chất lượng cao.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-end text-brand-dark font-semibold text-sm">
+                            <span><i class="fa-solid fa-network-wired text-brand-orange mr-2"></i>Action: Market Activation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-16 flex justify-center order-1 md:order-2 relative">
+                    <div class="icon-wrapper w-16 h-16 bg-brand-green text-white rounded-full flex items-center justify-center text-2xl shadow-xl z-10 border-4 border-white transition-all duration-300">
+                        <i class="fa-solid fa-search"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block opacity-50 text-9xl font-bold text-gray-200 select-none">
+                    03
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row items-center mb-20 group">
+                <div class="md:w-1/2 md:pr-12 md:text-right order-3 md:order-1 hidden md:block opacity-50 text-9xl font-bold text-gray-200 select-none">
+                    04
+                </div>
+                <div class="md:w-16 flex justify-center order-1 md:order-2 relative">
+                    <div class="icon-wrapper w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl shadow-xl z-10 border-4 border-white transition-all duration-300">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12 order-2 md:order-3 mt-6 md:mt-0">
+                    <div class="step-card bg-white p-8 rounded-none border-l-4 border-brand-orange shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-orange to-transparent"></div>
+                        <span class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Step 04</span>
+                        <h3 class="text-3xl font-bold text-brand-dark mb-2">SCREENING & ASSESSMENT</h3>
+                        <h4 class="text-xl text-brand-green mb-4 italic">Sàng lọc & Đánh giá Năng lực</h4>
+                        <p class="text-gray-600 mb-4">Phỏng vấn chuyên sâu dựa trên Khung năng lực, Văn hóa và Động lực. Đánh giá đa chiều.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-start text-brand-dark font-semibold text-sm">
+                            <span><i class="fa-solid fa-list-check text-brand-orange mr-2"></i>Output: Shortlist 3-5 Top Profiles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row items-center mb-20 group">
+                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                    <div class="step-card bg-white p-8 rounded-none border-r-4 border-brand-dark shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-brand-dark"></div>
+                        <span class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Step 05</span>
+                        <h3 class="text-3xl font-bold text-brand-dark mb-2">CLIENT INTERVIEW</h3>
+                        <h4 class="text-xl text-brand-green mb-4 italic">Phỏng vấn & Phản hồi</h4>
+                        <p class="text-gray-600 mb-4">Điều phối lịch phỏng vấn chuyên nghiệp và thúc đẩy vòng phản hồi 2 chiều nhanh chóng, minh bạch.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-end text-brand-dark font-semibold text-sm">
+                            <span><i class="fa-solid fa-comments text-brand-orange mr-2"></i>Focus: Speed & Transparency</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-16 flex justify-center order-1 md:order-2 relative">
+                    <div class="icon-wrapper w-16 h-16 bg-brand-dark text-white rounded-full flex items-center justify-center text-2xl shadow-xl z-10 border-4 border-white transition-all duration-300">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block opacity-50 text-9xl font-bold text-gray-200 select-none">
+                    05
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row items-center mb-10 group">
+                <div class="md:w-1/2 md:pr-12 md:text-right order-3 md:order-1 hidden md:block opacity-50 text-9xl font-bold text-gray-200 select-none">
+                    06
+                </div>
+                <div class="md:w-16 flex justify-center order-1 md:order-2 relative">
+                    <div class="icon-wrapper w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl shadow-xl z-10 border-4 border-white transition-all duration-300 animate-pulse">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12 order-2 md:order-3 mt-6 md:mt-0">
+                    <div class="step-card bg-brand-dark text-white p-8 rounded-none border-l-4 border-brand-orange shadow-2xl relative overflow-hidden transform scale-105">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fa-solid fa-award text-6xl"></i>
+                        </div>
+                        <span class="text-sm font-bold text-brand-orange uppercase tracking-widest mb-2 block">The Goal</span>
+                        <h3 class="text-3xl font-bold text-white mb-2">CLOSING & ONBOARDING</h3>
+                        <h4 class="text-xl text-brand-blue mb-4 italic">Đích đến & Hội nhập</h4>
+                        <p class="text-gray-300 mb-4">Đàm phán chiến lược "Win-Win" về Total Rewards. Bảo hành và hỗ trợ hội nhập trong suốt giai đoạn thử việc.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-600 flex items-center justify-start text-brand-orange font-bold text-sm">
+                            <span><i class="fa-solid fa-check-circle mr-2"></i>Success: Successful Hire</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-blue relative overflow-hidden text-center text-white">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <i class="fa-solid fa-users absolute top-10 left-10 text-9xl animate-bounce-slow"></i>
+            <i class="fa-solid fa-chart-line absolute bottom-10 right-10 text-9xl animate-bounce-slow" style="animation-delay: 1.5s;"></i>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-bold mb-6">SẴN SÀNG KIẾN TẠO ĐỘI NGŨ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Hãy để Build Talents trở thành đối tác chiến lược nhân sự của bạn ngay hôm nay.</p>
+            <a href="#" class="inline-block px-10 py-4 bg-brand-orange text-white font-bold text-lg rounded shadow-lg hover:bg-white hover:text-brand-orange transition-all duration-300 transform hover:-translate-y-1">
+                LIÊN HỆ NGAY
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-white py-12 border-t-4 border-brand-orange">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <i class="fa-solid fa-building-user text-4xl text-brand-orange mb-4"></i>
+                <h3 class="text-2xl font-bold tracking-widest uppercase">Build Talents</h3>
+                <p class="text-brand-blue text-sm uppercase tracking-wider">Strategic HR Partner</p>
+            </div>
+            
+            <div class="w-24 h-1 bg-brand-green mx-auto mb-6"></div>
+            
+            <p class="text-lg font-light">
+                Designed & Developed by <br>
+                <strong class="text-brand-orange font-bold text-2xl mt-2 block">Rosie Đào Hạnh Giang</strong>
+                <span class="text-sm text-gray-400 mt-1 block uppercase tracking-widest">CEO Build Talents</span>
+            </p>
+            
+            <div class="mt-8 text-gray-500 text-sm">
+                &copy; 2024 Build Talents. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scroll
+        function scrollToTimeline() {
+            document.getElementById('timeline').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Reveal on Scroll Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            // Trigger once on load
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
